@@ -41,7 +41,7 @@ Include the rapidoreach.aar, Google Play Services and androidx.appcompat in your
     dependencies {
         ...
         implementation 'androidx.appcompat:appcompat:1.2.0'
-        implementation 'com.google.android.gms:play-services-ads:19.2.0'
+        implementation 'com.google.android.gms:play-services-ads:20.0.0'
         implementation (name: 'RapidoReach-1.0.0', ext: 'aar')
     }
       
