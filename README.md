@@ -16,7 +16,7 @@ Gradle Install via jCenter()
       
 #### Download the SDK
 
-Download the latest version of the Android SDK [here](http://bitbucket.com/). Add the RapidoReach-1.0.0.aar file to your projects "libs" folder.
+Download the latest version of the Android SDK [here](https://github.com/rapidoreach/AndroidNativeSDK/blob/2d3a5fd67f23380c78c7cb685b58477ac7068130/Rapidoreach-1.0.0.aar). Add the RapidoReach-1.0.0.aar file to your projects "libs" folder.
 
 ### Update your module's build.gradle file
 
