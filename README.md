@@ -159,7 +159,7 @@ The quantity value will automatically be converted to your virtual currency base
 
 For security purposes we always recommend that developers utilize a server side callback, however we also provide APIs for implementing a client side award notification if you lack the server structure or a server altogether or want more real-time award notification. It's important to only award the user once if you use both server and client callbacks (though your users may not be opposed!).
 
-```bash
+```java
 public class MyActivity extends Activity implements RapidoReachRewardListener {
 
     @Override
@@ -186,7 +186,7 @@ public class MyActivity extends Activity implements RapidoReachRewardListener {
 ### Reward Center Events
 You can optionally listen for the onRewardCenterOpened and onRewardCenterClosed events by implementing the `RapidoReachSurveyListener` interface.
 
-```bash
+```java
 
 public class MyActivity extends Activity implements RapidoReachSurveyListener {
 
@@ -218,7 +218,7 @@ public class MyActivity extends Activity implements RapidoReachSurveyListener {
 ### Survey Available Callback
 
 If you'd like to be notified when a survey is available you can add a listener:
-```bash
+```java
 
 public class MyActivity extends Activity implements RapidoReachSurveyAvailableListener {
 
@@ -250,7 +250,7 @@ When you initially create your app we automatically set your app to Test mode. W
 
 We provide several methods to customize the navigation bar to feel like your app.
 
-```bash
+```java
 
   RapidoReach.getInstance().setNavigationBarText("Demo App");
   RapidoReach.getInstance().setNavigationBarColor("#17b4b3");
