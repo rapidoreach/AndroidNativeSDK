@@ -1,0 +1,92 @@
+name: Publish Android AAR to GitHub Packages (Maven)
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to publish (e.g. 1.0.2). Defaults to tag version when triggered by tag."
+        required: false
+        type: string
+      aar_file:
+        description: "AAR filename to publish (defaults to Rapidoreach-<version>.aar)."
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java (for Maven)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
+
+      - name: Resolve version + AAR file
+        id: vars
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${GITHUB_REF_TYPE:-}" == "tag" ]]; then
+            ver="${GITHUB_REF_NAME#v}"
+          else
+            ver="${{ inputs.version }}"
+          fi
+
+          if [[ -z "${ver}" ]]; then
+            echo "Missing version. Provide workflow_dispatch input 'version' or run on a tag like v1.0.2."
+            exit 1
+          fi
+
+          aar="${{ inputs.aar_file }}"
+          if [[ -z "${aar}" ]]; then
+            aar="Rapidoreach-${ver}.aar"
+          fi
+
+          if [[ ! -f "${aar}" ]]; then
+            echo "AAR not found: ${aar}"
+            echo "Available AARs:"
+            ls -la *.aar || true
+            exit 1
+          fi
+
+          echo "version=${ver}" >> "${GITHUB_OUTPUT}"
+          echo "aar=${aar}" >> "${GITHUB_OUTPUT}"
+
+      - name: Publish to GitHub Packages (Maven)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mvn --batch-mode deploy:deploy-file \
+            -DgroupId=com.rapidoreach \
+            -DartifactId=rapidoreach \
+            -Dversion="${{ steps.vars.outputs.version }}" \
+            -Dpackaging=aar \
+            -Dfile="${{ steps.vars.outputs.aar }}" \
+            -DrepositoryId=github \
+            -Durl="https://maven.pkg.github.com/${{ github.repository }}" \
+            -DgeneratePom=true
+
+      # - name: Create GitHub Release
+      #   if: github.ref_type == 'tag'
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     tag_name: ${{ github.ref_name }}
+      #     files: ${{ steps.vars.outputs.aar }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
