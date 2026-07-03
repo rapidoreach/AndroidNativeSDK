@@ -2,13 +2,25 @@
 
 Rewarded survey offerwall SDK for Android. Integrate RapidoReach to show survey content (offerwall / placements / quick questions), receive reward events, and send user attributes for targeting.
 
+## Recommended install path
+
+For new Android integrations, use the current Gradle/Maven package:
+
+```gradle
+dependencies {
+  implementation "com.rapidoreach:cbofferwallsdk:1.1.0"
+}
+```
+
+This repository is kept for the legacy bundled-AAR install path. Use the bundled AAR only if you cannot consume the Maven package or RapidoReach support asks you to validate this legacy path.
+
 ## Get your API key
 
 Create an app in the RapidoReach dashboard and copy your API key.
 
-## Installation (bundled AAR)
+## Installation (legacy bundled AAR)
 
-This repo ships a prebuilt AAR (recommended for external developers/publishers because it avoids Maven auth).
+This repo ships prebuilt legacy AAR files.
 
 1) Copy `Rapidoreach-1.0.2.aar` into your app module at `app/libs/`.
 
