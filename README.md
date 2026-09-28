@@ -2,13 +2,26 @@
 
 Rewarded survey offerwall SDK for Android. Integrate RapidoReach to show survey content (offerwall / placements / quick questions), receive reward events, and send user attributes for targeting.
 
+## Integrate with an AI coding agent
+
+Download the [Android Agent Skill](https://docs.rapidoreach.com/downloads/rapidoreach-android-1.1.0.zip), the [verification skill](https://docs.rapidoreach.com/downloads/rapidoreach-verify-1.1.0.zip), or the [complete skill bundle](https://docs.rapidoreach.com/downloads/rapidoreach-agent-skills-1.1.0.zip). The [Agent Skills guide](https://docs.rapidoreach.com/docs/v2/sdk/ai-agent-skills) explains installation in Codex and Claude Code. Check the [current Android guide](https://docs.rapidoreach.com/docs/v2/sdk/androidsdk) before choosing a package version.
+
 ## Get your API key
 
 Create an app in the RapidoReach dashboard and copy your API key.
 
-## Installation (bundled AAR)
+## Recommended installation (Maven Central)
 
-This repo ships a prebuilt AAR (recommended for external developers/publishers because it avoids Maven auth).
+Use the current Maven Central artifact from the [Android guide](https://docs.rapidoreach.com/docs/v2/sdk/androidsdk). The bundled AAR below is an older distribution for existing integrations.
+
+```gradle
+repositories { google(); mavenCentral() }
+dependencies { implementation "com.rapidoreach:cbofferwallsdk:1.1.0" }
+```
+
+## Older bundled AAR installation
+
+This repo also ships a prebuilt `1.0.2` AAR. Follow this section only when maintaining an app already using that distribution.
 
 1) Copy `Rapidoreach-1.0.2.aar` into your app module at `app/libs/`.
 
